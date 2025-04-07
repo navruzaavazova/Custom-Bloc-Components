@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:state_using_stream/cubit/counter_cubit.dart';
-import 'package:state_using_stream/cubit/counter_state.dart';
+import 'package:state_using_stream/bloc/counter_bloc.dart';
+import 'package:state_using_stream/bloc/counter_event.dart';
+import 'package:state_using_stream/bloc/counter_state.dart';
+import 'package:state_using_stream/builder/spider_bloc_builder.dart';
+
 import 'package:state_using_stream/provider/inheritance/spider_inheritance.dart';
 import 'package:state_using_stream/provider/spider_provider.dart';
 
@@ -13,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpiderProvider(
-      create: (context) => CounterCubit(),
+      create: (context) => CounterBloc(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -36,12 +39,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late final CounterCubit _counterCubit;
+  late final CounterBloc _counterBloc;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _counterCubit = SpiderInheritance.of<CounterCubit>(context);
+    _counterBloc = SpiderInheritance.of<CounterBloc>(context);
   }
 
   @override
@@ -58,11 +61,10 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            StreamBuilder<CounterState>(
-                stream: _counterCubit.stateStream,
+            SpiderBlocBuilder<CounterBloc, CounterState>(
                 builder: (context, snapshot) {
                   return Text(
-                    snapshot.data?.count.toString() ?? '',
+                    snapshot.count.toString(),
                     style: Theme.of(context).textTheme.headlineMedium,
                   );
                 }),
@@ -70,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _counterCubit.increment(),
+        onPressed: () => _counterBloc.addEvent(IncrementEvent()),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
