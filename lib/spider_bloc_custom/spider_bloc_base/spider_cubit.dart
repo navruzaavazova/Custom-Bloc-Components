@@ -1,11 +1,11 @@
 import 'dart:async';
 
-abstract class CubitCustom<S> {
+abstract class SpiderCubit<S> {
   final StreamController<S> _stateController2 = StreamController<S>();
   S state;
   Stream<S> get stateStream => _stateController2.stream;
 
-  CubitCustom({required this.state}) {
+  SpiderCubit({required this.state}) {
     emit(state);
   }
 
@@ -13,7 +13,6 @@ abstract class CubitCustom<S> {
     state = value;
     _stateController2.add(value);
   }
-
 
   void closure() {
     _stateController2.close();

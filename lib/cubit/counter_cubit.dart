@@ -1,7 +1,7 @@
 import 'package:state_using_stream/cubit/counter_state.dart';
-import 'package:state_using_stream/stream/cubit_custom.dart';
+import 'package:state_using_stream/spider_bloc_custom/spider_bloc_base/spider_cubit.dart';
 
-class CounterCubit extends CubitCustom<CounterState> {
+class CounterCubit extends SpiderCubit<CounterState> {
   CounterCubit()
       : super(
           state: const CounterState(0),
