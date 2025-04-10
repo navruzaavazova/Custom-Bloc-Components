@@ -1,8 +1,12 @@
-# state_using_stream
+# Custom Bloc Components
 
-A new Flutter project.
+Flutter, I have created custom bloc package components
 
-## Getting Started
+## Realized:
+1. Bloc base for state managing(spider_bloc_base.dart)
+2. Bloc event(spider_bloc.dart)
+3. Bloc Consumer, Listener, Builder
+4. Spider Provider and Inheritance as well
 
 This project is a starting point for a Flutter application.
 
