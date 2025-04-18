@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:state_using_stream/spider_bloc_custom/spider_bloc_base/spider_bloc_base.dart';
 import 'package:state_using_stream/spider_provider/spider_inheritance/spider_inheritance.dart';
 
 class SpiderProvider<T> extends StatefulWidget {
@@ -17,6 +18,13 @@ class _SpiderProvider<T> extends State<SpiderProvider<T>> {
   void initState() {
     super.initState();
      _spider = widget.create();
+  }
+  @override
+  void dispose() {
+    if (_spider is SpiderBlocBase) {
+      (_spider as SpiderBlocBase).close();
+    }
+    super.dispose();
   }
 
 

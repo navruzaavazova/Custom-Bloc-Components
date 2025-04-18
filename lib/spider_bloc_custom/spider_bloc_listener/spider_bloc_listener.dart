@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:state_using_stream/spider_bloc_custom/spider_bloc_base/spider_bloc_base.dart';
 import 'package:state_using_stream/spider_provider/spider_inheritance/spider_inheritance.dart';
@@ -25,21 +24,32 @@ class _SpiderBlocListenerState<B extends SpiderBlocBase<S>, S>
   StreamSubscription<S>? _subscription;
   late S _previousState;
   late final B _bloc;
-  
+
+
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-     _bloc = SpiderInheritance.of<B>(context);
+  void initState() {
+    super.initState();
+    _bloc = SpiderInheritance.read<B>(context);
     _previousState = _bloc.state;
     _subscribe();
+
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //    _bloc = SpiderInheritance.of<B>(context);
+  //   _previousState = _bloc.state;
+  //   _subscribe();
+  // }
 
   void _subscribe() {
     _subscription = _bloc.stateStream.listen((state) {
       if (widget.listenWhen?.call(_previousState, state) ?? true) {
         widget.listener(context, state);
+        _previousState = state;
       }
-      _previousState = state;
+
     });
   }
 

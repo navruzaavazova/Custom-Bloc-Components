@@ -18,6 +18,12 @@ class _SpiderBlocBuilderState<B extends SpiderBlocBase<S>, S>
   Widget? _previousWidget;
 
   @override
+  void initState() {
+    super.initState();
+    _previousState = SpiderInheritance.read<B>(context).state;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final B bloc = SpiderInheritance.of<B>(context);
     return StreamBuilder<S>(
@@ -31,7 +37,8 @@ class _SpiderBlocBuilderState<B extends SpiderBlocBase<S>, S>
                   widget.builder(context, snapshot.data ?? bloc.state);
             }
           } else {
-            _previousWidget = widget.builder(context, snapshot.data ?? bloc.state);
+            _previousWidget =
+                widget.builder(context, snapshot.data ?? bloc.state);
             widget.builder(context, bloc.state);
           }
           return _previousWidget ?? widget.builder(context, bloc.state);

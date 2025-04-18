@@ -23,14 +23,15 @@ class SpiderBlocConsumer<B extends SpiderBlocBase<S>, S>
 
 class _SpiderBlocConsumerState<B extends SpiderBlocBase<S>, S>
     extends State<SpiderBlocConsumer<B, S>> {
-
-
   @override
   Widget build(BuildContext context) {
     return SpiderBlocListener<B, S>(
       listener: widget.listener,
       listenWhen: widget.listenWhen,
-      child: SpiderBlocBuilder<B, S>(builder: widget.builder, buildWhen: widget.buildWhen,),
+      child: SpiderBlocBuilder<B, S>(
+        builder: widget.builder,
+        buildWhen: widget.buildWhen,
+      ),
     );
   }
 }

@@ -11,6 +11,13 @@ class SpiderInheritance<T> extends InheritedWidget {
     assert(provider != null, 'No Spider Inheritance found');
     return provider!.spider;
   }
+  static T read <T>(BuildContext context){
+    final SpiderInheritance? provider =
+        context.findAncestorWidgetOfExactType<SpiderInheritance<T>>();
+    assert(provider != null, 'No Spider Inheritance found');
+    return provider!.spider;
+
+  }
 
   @override
   bool updateShouldNotify(covariant SpiderInheritance<T> oldWidget) {
